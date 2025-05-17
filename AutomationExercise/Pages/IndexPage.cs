@@ -2,13 +2,7 @@
 using AutomationExercise.Factories;
 using AutomationExercise.Helpers;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V134.Network;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationExercise.Pages;
 // zbych09@gmail.com
@@ -32,8 +26,10 @@ public class IndexPage
 	private readonly By DeleteAccountButton = By.CssSelector("a[href='/delete_account']");
 	private readonly By AccountDeletedLabel = By.CssSelector("h2[data-qa='account-deleted']");
 	private readonly By ContinueButtonAfterDeletedAccount = By.CssSelector("a[data-qa='continue-button']");
-	private readonly By LogoutButton = By.CssSelector("a[href='/logout'");
-	private readonly By ContactUsButton = By.CssSelector("a[href='/contact_us'");
+	private readonly By LogoutButton = By.CssSelector("a[href='/logout']");
+	private readonly By ContactUsButton = By.CssSelector("a[href='/contact_us']");
+	private readonly By TestCasesButton = By.CssSelector("a[href='/test_cases']");
+	private readonly By ProductsButton = By.CssSelector("a[href='/products']");
 
 	public IndexPage()
     {
@@ -101,6 +97,22 @@ public class IndexPage
 		contactUs.Click();
 
 		return new ContactUsPage();
+	}
+
+	public TestCasesPage GoToTestCasesPage()
+	{
+		var testCasesButton = driver.FindElement(TestCasesButton);
+		testCasesButton.Click();
+
+		return new TestCasesPage();
+	}
+
+	public ProductsPage GoToProductsPage()
+	{
+		var productsButton = driver.FindElement(ProductsButton);
+		productsButton.Click();
+
+		return new ProductsPage();
 	}
 
 	public IndexPage DeleteAccount()

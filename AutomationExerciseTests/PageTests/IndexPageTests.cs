@@ -15,7 +15,7 @@ public class IndexPageTests
 {
 	private IndexPage _indexPage;
 
-	[SetUp]
+	[OneTimeSetUp]
 	public void SetUp()
 	{
 		_indexPage = new IndexPage();
@@ -123,6 +123,37 @@ public class IndexPageTests
 		var backToIndexPage = completeTheForm.ClickHomeButton();
 		bool indexPageVisible = backToIndexPage.IsIndexPageVisible();
 		Assert.That(indexPageVisible, Is.True);
+	}
+
+	[Test]
+	public void TestCasesPage_OpenSubpage_IsVisible()
+	{
+		var indexPage = _indexPage.Open();
+		bool pageVisible = indexPage.IsIndexPageVisible();
+		Assert.That(pageVisible, Is.True);
+
+		bool isTestCasesVisible = indexPage.GoToTestCasesPage().IsPageVisible();
+		Assert.That(isTestCasesVisible, Is.True);
+	}
+
+	[Test]
+	public void ProductsPage_VerifyProduct_ProductExists()
+	{
+		var indexPage = _indexPage.Open();
+		bool pageVisible = indexPage.IsIndexPageVisible();
+		Assert.That(pageVisible, Is.True);
+
+		var productPage = indexPage.GoToProductsPage();
+		bool allProductsLabel = productPage.AllProductsVisible();
+		bool allProductsList = productPage.ListOfFeaturedItemsVisible();
+		Assert.That(allProductsLabel, Is.True);
+		Assert.That(allProductsList, Is.True);
+
+		var productDetailsPage = productPage.ViewFirstProduct();
+		bool detailsPage = productDetailsPage.ProductDetailsPageVisible();
+		bool verifyInfo = productDetailsPage.ProductDetailedDescriptionVisible();
+		Assert.That(detailsPage, Is.True);
+		Assert.That(verifyInfo, Is.True);
 	}
 
 	[OneTimeTearDown]
